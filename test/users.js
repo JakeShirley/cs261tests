@@ -10,12 +10,15 @@ describe('/users', function() {
     var expectedAccount = { };
     var findAccount = { };
     var useQuerystring = false;
+    
+    // Don't run ANY user tests if we
+    //  don't have 'users' enabled
+    if (!context.shouldTest(endpoint))
+      return;
 
     before(function(done) {
         this.endpoint = endpoint;
         this.url = context.getRoot() + this.endpoint;
-        if (!context.shouldTest(this.endpoint))
-            this.skip();
 
         // Do any endpoint-level setup here
         crypto.randomBytes(5, function(err, buf) {
